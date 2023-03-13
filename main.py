@@ -14,6 +14,9 @@ def cadastrar():
 
     resposta = banco.cadastrar_usuario(dados_cadastro)
 
+    if resposta == "Esse usuário já existe.":
+        return resposta, 200
+
     return resposta, 201
 
 

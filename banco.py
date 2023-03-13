@@ -22,6 +22,15 @@ def inicializar():
 
 def cadastrar_usuario(dados_cadastro):
     cursor.execute(
+        "SELECT usuario FROM usuarios WHERE usuario = ?",
+        (dados_cadastro["usuario"],)
+    )
+    usuario = cursor.fetchone()
+
+    if usuario:
+        return "Esse usuário já existe."
+
+    cursor.execute(
         "INSERT INTO usuarios VALUES (?, ?)",
         (dados_cadastro["usuario"], dados_cadastro["senha"])
     )
