@@ -8,7 +8,7 @@ app.secret_key = secrets.token_bytes(32)
 url_externo = "http://boscola.ddns.net:5000/"
 
 
-@app.route('/cadastrar', methods=['POST'])
+@app.route('/api/cadastrar', methods=['POST'])
 def cadastrar():
     dados_cadastro = request.json
 
@@ -20,7 +20,7 @@ def cadastrar():
     return resposta, 201
 
 
-@app.route('/login', methods=["POST"])
+@app.route('/api/login', methods=["POST"])
 def login():
     if "usuario" not in session:
         dados_login = request.json
@@ -35,7 +35,7 @@ def login():
     return resposta, 200
 
 
-@app.route("/logout", methods=["POST"])
+@app.route("/api/logout", methods=["POST"])
 def logout():
     if "usuario" in session:
         del session["usuario"]
