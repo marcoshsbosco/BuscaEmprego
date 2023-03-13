@@ -17,7 +17,7 @@ def inicializar():
 
     conexao.autocommit = True
 
-    cursor = conexao.cursor()
+    cursor = conexao.cursor(dictionary=True)
 
 
 def cadastrar_usuario(dados_cadastro):
@@ -27,3 +27,19 @@ def cadastrar_usuario(dados_cadastro):
     )
 
     return "Usuário inserido com sucesso!"
+
+
+def autenticar_usuario(dados_login):
+    cursor.execute(
+        "SELECT usuario, senha FROM usuarios WHERE usuario = ?",
+        (dados_login["usuario"],)
+    )
+
+    usuario = cursor.fetchone()
+
+    if not usuario:
+        return "Usuário não encontrado."
+    elif usuario["senha"] != dados_login["senha"]:
+        return "Senha incorreta."
+
+    return "Usuário autenticado com sucesso!"

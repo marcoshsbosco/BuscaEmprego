@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, Response
+from flask import Flask, render_template, request, make_response
 import banco
 
 
@@ -13,6 +13,19 @@ def cadastrar():
     resposta = banco.cadastrar_usuario(dados_cadastro)
 
     return resposta, 201
+
+
+@app.route('/login', methods=["POST"])
+def login():
+    dados_login = request.json
+
+    resposta = banco.autenticar_usuario(dados_login)
+
+    if resposta == "Usuário autenticado com sucesso!":
+        resposta = make_response(resposta)
+        resposta.set_cookie("ck_usuario", dados_login["usuario"])
+
+    return resposta, 200
 
 
 if __name__ == '__main__':
