@@ -35,6 +35,14 @@ def login():
     return resposta, 200
 
 
+@app.route("/logout", methods=["POST"])
+def logout():
+    if "usuario" in session:
+        del session["usuario"]
+
+    return "Logout realizado com sucesso!", 200
+
+
 if __name__ == '__main__':
     banco.inicializar()
 

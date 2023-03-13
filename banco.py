@@ -43,7 +43,6 @@ def autenticar_usuario(dados_login):
         "SELECT usuario, senha FROM usuarios WHERE usuario = ?",
         (dados_login["usuario"],)
     )
-
     usuario = cursor.fetchone()
 
     if not usuario:
