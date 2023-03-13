@@ -29,6 +29,8 @@ def login():
 
         if resposta == "Usuário autenticado com sucesso!":
             session["usuario"] = dados_login["usuario"]
+    else:
+        resposta = "Usuário já está logado!"
 
     return resposta, 200
 
