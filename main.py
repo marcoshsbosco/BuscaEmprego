@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request, make_response
+from flask import Flask, render_template, request, make_response, session
 import banco
+import secrets
 
 
 app = Flask(__name__)
+app.secret_key = secrets.token_bytes(32)
 url_externo = "http://boscola.ddns.net:5000/"
 
 
@@ -17,13 +19,13 @@ def cadastrar():
 
 @app.route('/login', methods=["POST"])
 def login():
-    dados_login = request.json
+    if "usuario" not in session:
+        dados_login = request.json
 
-    resposta = banco.autenticar_usuario(dados_login)
+        resposta = banco.autenticar_usuario(dados_login)
 
-    if resposta == "Usuário autenticado com sucesso!":
-        resposta = make_response(resposta)
-        resposta.set_cookie("ck_usuario", dados_login["usuario"])
+        if resposta == "Usuário autenticado com sucesso!":
+            session["usuario"] = dados_login["usuario"]
 
     return resposta, 200
 
