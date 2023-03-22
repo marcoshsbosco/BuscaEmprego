@@ -55,8 +55,8 @@ def autenticar_usuario(dados_login):
 
 def cadastrar_vaga(dados_vaga):
     cursor.execute(
-        "INSERT INTO vagas (cargo, funcao, salario, horas, lugar, contato) VALUES (?, ?, ?, ?, ?, ?)",
-        (dados_vaga["cargo"], dados_vaga["funcao"], dados_vaga["salario"], dados_vaga["horas"], dados_vaga["lugar"], dados_vaga["contato"])
+        "INSERT INTO vagas (cargo, funcao, salario, horas, lugar, contato, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        (dados_vaga["cargo"], dados_vaga["funcao"], dados_vaga["salario"], dados_vaga["horas"], dados_vaga["lugar"], dados_vaga["contato"], dados_vaga["id_usuario"])
     )
 
     return "Vaga inserida com sucesso!"

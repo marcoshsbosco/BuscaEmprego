@@ -22,6 +22,10 @@ create table vagas (
     horas INT,
     lugar VARCHAR(64),
     contato VARCHAR(64),
+    id_usuario INT UNSIGNED NOT NULL,
 
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    CONSTRAINT `fk_id_usuario`
+        FOREIGN KEY (id_usuario) REFERENCES usuarios(`id`)
+        ON DELETE CASCADE
 );
