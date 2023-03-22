@@ -8,6 +8,15 @@ app.secret_key = secrets.token_bytes(32)
 url_externo = "http://boscola.ddns.net:5000/"
 
 
+@app.route('/api/criarvaga', methods=['POST'])
+def criar_vaga():
+    dados_vaga = request.json
+
+    resposta = banco.cadastrar_vaga(dados_vaga)
+
+    return resposta, 201
+
+
 @app.route('/api/cadastrar', methods=['POST'])
 def cadastrar():
     dados_cadastro = request.json

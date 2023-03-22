@@ -51,3 +51,12 @@ def autenticar_usuario(dados_login):
         return "Senha incorreta."
 
     return "Usuário autenticado com sucesso!"
+
+
+def cadastrar_vaga(dados_vaga):
+    cursor.execute(
+        "INSERT INTO vagas (cargo, funcao, salario, horas, lugar, contato) VALUES (?, ?, ?, ?, ?, ?)",
+        (dados_vaga["cargo"], dados_vaga["funcao"], dados_vaga["salario"], dados_vaga["horas"], dados_vaga["lugar"], dados_vaga["contato"])
+    )
+
+    return "Vaga inserida com sucesso!"
