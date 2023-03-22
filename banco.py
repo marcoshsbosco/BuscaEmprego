@@ -10,8 +10,8 @@ def inicializar():
     conexao = mariadb.connect(
         user="buscaemprego",
         password="buscaemp_api",
-        host="localhost",
-        port=5000,
+        host="boscola.ddns.net",
+        port=3306,
         database="buscaemprego"
     )
 
