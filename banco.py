@@ -31,7 +31,7 @@ def cadastrar_usuario(dados_cadastro):
         return "Esse usuário já existe."
 
     cursor.execute(
-        "INSERT INTO usuarios VALUES (?, ?)",
+        "INSERT INTO usuarios (usuario, senha) VALUES (?, ?)",
         (dados_cadastro["usuario"], dados_cadastro["senha"])
     )
 
