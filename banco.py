@@ -69,3 +69,13 @@ def deletar_vaga(id_vaga):
     )
 
     return "Vaga deletada com sucesso!"
+
+
+def vagas_resumidas():
+    cursor.execute(
+        "SELECT v.id, u.usuario, v.funcao, v.salario FROM vagas v JOIN usuarios u ON v.id_usuario = u.id;"
+    )
+
+    query = cursor.fetchall()
+
+    return query

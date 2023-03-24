@@ -8,6 +8,13 @@ app.secret_key = secrets.token_bytes(32)
 url_externo = "http://boscola.ddns.net:5000/"
 
 
+@app.route("/api/vagasresumidas", methods=["GET"])
+def vagas_resumidas():
+    resposta = banco.vagas_resumidas()
+
+    return resposta, 200
+
+
 @app.route("/api/deletarvaga", methods=["POST"])
 def deletar_vaga():
     id_vaga = request.json
