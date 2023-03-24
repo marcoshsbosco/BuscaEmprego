@@ -60,3 +60,12 @@ def cadastrar_vaga(dados_vaga):
     )
 
     return "Vaga inserida com sucesso!"
+
+
+def deletar_vaga(id_vaga):
+    cursor.execute(
+        "DELETE FROM vagas WHERE id = ?",
+        (id_vaga["id_vaga"],)
+    )
+
+    return "Vaga deletada com sucesso!"
