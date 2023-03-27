@@ -8,6 +8,11 @@ app.secret_key = secrets.token_bytes(32)
 url_externo = "http://boscola.ddns.net:5000/"
 
 
+@app.route("/", methods=["GET"])
+def listar_vagas_front():
+    return render_template("listar_vagas.html", data=banco.vagas_resumidas())
+
+
 @app.route("/criarvaga", methods=["GET"])
 def criar_vaga_front():
     return render_template("criar_vaga.html")

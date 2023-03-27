@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Vagas de Emprego</title>
+    <link rel="stylesheet" href="/static/listar_vagas.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <h1>Vagas de Emprego</h1>
+    <div id="vagas"></div>
+    <script>
+        $(document).ready(function() {
+          $.getJSON('/api/vagasresumidas', function(vagas) {
+            var html = '';
+            $.each(vagas, function(index, vaga) {
+              html += '<div class="vaga">';
+              html += '<div class="salario">Empresa: ' + vaga.usuario + '</div>';
+              html += '<div class="funcao"> Posição: ' + vaga.funcao + '</div>';
+              html += '<div class="salario">Salário: ' + vaga.salario + '</div>';
+              html += '</div>';
+            });
+            $('#vagas').html(html);
+          });
+        });
+    </script>
+  </body>
+</html>
