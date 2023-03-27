@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, make_response, session
+from flask import Flask, render_template, request, make_response, session, redirect
 import banco
 import secrets
 
@@ -6,6 +6,11 @@ import secrets
 app = Flask(__name__)
 app.secret_key = secrets.token_bytes(32)
 url_externo = "http://boscola.ddns.net:5000/"
+
+
+@app.route("/cadastrar", methods=["GET"])
+def cadastrar_front():
+    return render_template("cadastrar.html")
 
 
 @app.route("/api/vagasresumidas", methods=["GET"])
@@ -35,7 +40,10 @@ def criar_vaga():
 
 @app.route('/api/cadastrar', methods=['POST'])
 def cadastrar():
-    dados_cadastro = request.json
+    dados_cadastro = {}
+
+    for item in request.form.items():
+        dados_cadastro.update({item[0]: item[1]})
 
     resposta = banco.cadastrar_usuario(dados_cadastro)
 
