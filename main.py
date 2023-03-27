@@ -8,6 +8,11 @@ app.secret_key = secrets.token_bytes(32)
 url_externo = "http://boscola.ddns.net:5000/"
 
 
+@app.route("/logout", methods=["GET"])
+def logout_front():
+    return render_template("logout.html")
+
+
 @app.route("/cadastrar", methods=["GET"])
 def cadastrar_front():
     return render_template("cadastrar.html")

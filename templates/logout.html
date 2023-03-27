@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Logout</title>
+	<link rel="stylesheet" type="text/css" href="static/logout.css">
+</head>
+<body>
+	<div class="container">
+		<h1>Tem certeza de que deseja sair?</h1>
+		<button onclick="logout()">Sair</button>
+	</div>
+
+	<script>
+		function logout() {
+			let xhr = new XMLHttpRequest();
+
+			xhr.open("POST", "http://boscola.ddns.net:5000/api/logout")
+
+			xhr.send()
+		}
+	</script>
+</body>
+</html>
