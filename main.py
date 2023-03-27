@@ -8,6 +8,11 @@ app.secret_key = secrets.token_bytes(32)
 url_externo = "http://boscola.ddns.net:5000/"
 
 
+@app.route("/criarvaga", methods=["GET"])
+def criar_vaga_front():
+    return render_template("criar_vaga.html")
+
+
 @app.route("/logout", methods=["GET"])
 def logout_front():
     return render_template("logout.html")
@@ -44,7 +49,12 @@ def deletar_vaga():
 
 @app.route('/api/criarvaga', methods=['POST'])
 def criar_vaga():
-    dados_vaga = request.json
+    dados_vaga = {}
+
+    for item in request.form.items():
+        dados_vaga.update({item[0]: item[1]})
+
+    dados_vaga["id_usuario"] = session["usuario"]
 
     resposta = banco.cadastrar_vaga(dados_vaga)
 
@@ -68,7 +78,6 @@ def cadastrar():
 
 @app.route('/api/login', methods=["POST"])
 def login():
-
     dados_login = {}
 
     for item in request.form.items():
@@ -76,10 +85,10 @@ def login():
 
     resposta = banco.autenticar_usuario(dados_login)
 
-    if resposta == "Usuário autenticado com sucesso!":
-        session["usuario"] = dados_login["usuario"]
+    if resposta[0] == "Usuário autenticado com sucesso!":
+        session["usuario"] = resposta[1]
 
-    return resposta, 200
+    return resposta[0], 200
 
 
 @app.route("/api/logout", methods=["POST"])

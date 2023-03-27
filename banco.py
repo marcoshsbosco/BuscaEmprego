@@ -40,7 +40,7 @@ def cadastrar_usuario(dados_cadastro):
 
 def autenticar_usuario(dados_login):
     cursor.execute(
-        "SELECT usuario, senha FROM usuarios WHERE usuario = ?",
+        "SELECT id, usuario, senha FROM usuarios WHERE usuario = ?",
         (dados_login["usuario"],)
     )
     usuario = cursor.fetchone()
@@ -50,7 +50,7 @@ def autenticar_usuario(dados_login):
     elif usuario["senha"] != dados_login["senha"]:
         return "Senha incorreta."
 
-    return "Usuário autenticado com sucesso!"
+    return "Usuário autenticado com sucesso!", usuario["id"]
 
 
 def cadastrar_vaga(dados_vaga):
