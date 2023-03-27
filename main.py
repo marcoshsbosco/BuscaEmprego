@@ -13,6 +13,14 @@ def cadastrar_front():
     return render_template("cadastrar.html")
 
 
+@app.route("/login", methods=["GET"])
+def login_front():
+    if "usuario" not in session:
+        return render_template("login.html")
+    else:
+        return "Usuário já logado!", 200
+
+
 @app.route("/api/vagasresumidas", methods=["GET"])
 def vagas_resumidas():
     resposta = banco.vagas_resumidas()
@@ -55,15 +63,16 @@ def cadastrar():
 
 @app.route('/api/login', methods=["POST"])
 def login():
-    if "usuario" not in session:
-        dados_login = request.json
 
-        resposta = banco.autenticar_usuario(dados_login)
+    dados_login = {}
 
-        if resposta == "Usuário autenticado com sucesso!":
-            session["usuario"] = dados_login["usuario"]
-    else:
-        resposta = "Usuário já está logado!"
+    for item in request.form.items():
+        dados_login.update({item[0]: item[1]})
+
+    resposta = banco.autenticar_usuario(dados_login)
+
+    if resposta == "Usuário autenticado com sucesso!":
+        session["usuario"] = dados_login["usuario"]
 
     return resposta, 200
 
