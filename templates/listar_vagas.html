@@ -7,6 +7,16 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   </head>
   <body>
+    <div class="top_nav">
+      {% if data["usuario"] %}
+      <a class="tab" href="http://boscola.ddns.net:5000/criarvaga">Criar vaga</a>
+      <a class="tab" href="http://boscola.ddns.net:5000/manutencao">Minhas vagas</a>
+      <a class="tab" href="http://boscola.ddns.net:5000/logout">Sair</a>
+      {% else %}
+      <a class="tab" href="http://boscola.ddns.net:5000/login">Login</a>
+      {% endif %}
+    </div>
+
     <h1>Vagas de Emprego</h1>
     <div id="vagas"></div>
     <script>

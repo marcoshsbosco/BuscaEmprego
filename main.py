@@ -18,7 +18,7 @@ def manutencao_front():
 
 @app.route("/", methods=["GET"])
 def listar_vagas_front():
-    return render_template("listar_vagas.html", data=banco.vagas_resumidas())
+    return render_template("listar_vagas.html", data={"vagas": banco.vagas_resumidas(), "usuario": None if "usuario" not in session else session["usuario"]})
 
 
 @app.route("/criarvaga", methods=["GET"])
@@ -119,7 +119,7 @@ def logout():
     if "usuario" in session:
         del session["usuario"]
 
-    return redirect("http://boscola.ddns.net:5000/")
+    return "OK", 200
 
 
 if __name__ == '__main__':
