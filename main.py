@@ -23,7 +23,10 @@ def listar_vagas_front():
 
 @app.route("/criarvaga", methods=["GET"])
 def criar_vaga_front():
-    return render_template("criar_vaga.html")
+    if "usuario" in session:
+        return render_template("criar_vaga.html")
+    else:
+        return redirect("http://boscola.ddns.net:5000/login")
 
 
 @app.route("/logout", methods=["GET"])
@@ -78,7 +81,7 @@ def criar_vaga():
 
     resposta = banco.cadastrar_vaga(dados_vaga)
 
-    return resposta, 201
+    return redirect("http://boscola.ddns.net:5000/")
 
 
 @app.route('/api/cadastrar', methods=['POST'])
@@ -93,7 +96,7 @@ def cadastrar():
     if resposta == "Esse usuário já existe.":
         return resposta, 200
 
-    return resposta, 201
+    return redirect("http://boscola.ddns.net:5000/")
 
 
 @app.route('/api/login', methods=["POST"])
@@ -108,7 +111,7 @@ def login():
     if resposta[0] == "Usuário autenticado com sucesso!":
         session["usuario"] = resposta[1]
 
-    return resposta[0], 200
+    return redirect("http://boscola.ddns.net:5000/")
 
 
 @app.route("/api/logout", methods=["POST"])
@@ -116,7 +119,7 @@ def logout():
     if "usuario" in session:
         del session["usuario"]
 
-    return "Logout realizado com sucesso!", 200
+    return redirect("http://boscola.ddns.net:5000/")
 
 
 if __name__ == '__main__':
