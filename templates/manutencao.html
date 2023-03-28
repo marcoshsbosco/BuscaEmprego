@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Manutenção de Vagas</title>
+    <link rel="stylesheet" href="/static/manutencao.css">
+  </head>
+  <body>
+    <h1>Minhas Vagas</h1>
+    <table id="vagas">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Descrição</th>
+          <th>Remover</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function() {
+    $.ajax({
+      url: '/api/vagas', // Endpoint que retorna as vagas do usuário
+      method: 'GET',
+      success: function(vagas) {
+        vagas.forEach(function(vaga) {
+          $('#vagas tbody').append(`
+            <tr>
+              <td>${vaga.cargo}</td>
+              <td>${vaga.funcao}</td>
+              <td><button class="remover" data-id="${vaga.id}">Remover</button></td>
+            </tr>
+          `);
+        });
+      }
+    });
+  
+    $(document).on('click', '.remover', function() {
+      var id = $(this).data('id');
+      var data = {};
+      data["id_vaga"] = id;
+
+      $.ajax({
+        url: '/api/deletarvaga',
+        method: 'POST',
+        data: data,
+        success: function() {
+          location.reload();
+        }
+      });
+    });
+  });
+    </script>
+  </body>
+</html>
+
+
+<!--
+  
+
+  //   foi utilado jQuery para fazer a requisição AJAX para obter as vagas do usuário e para remover uma vaga. Na função de sucesso da requisição de remoção, utilizamos location.reload() para recarregar a página após a remoção da vaga.
+  //substituir os endpoints de exemplo pelos endpoints corretos do seu backend e de configurar a autenticação do usuário no servidor.
+
+const express = require('express');
+const app = express();
+
+app.post('/vagas', (req, res) => {
+  // Receber a solicitação HTTP
+  const { cargo, funcao, salario, carga_horaria, local, contato } = req.body;
+
+  // Processar a solicitação
+  const novaVaga = criarNovaVaga(cargo, funcao, salario, carga_horaria, local, contato);
+
+  // Retornar uma resposta HTTP
+  res.status(201).json(novaVaga);
+});
+
+function criarNovaVaga(cargo, funcao, salario, carga_horaria, local, contato) {
+  // Lógica de negócios para criar uma nova vaga
+  // Aqui seria feita a interação com um banco de dados, por exemplo
+  const novaVaga = { id: 1, cargo, funcao, salario, carga_horaria, local, contato };
+  return novaVaga;
+}
+app.listen(3000, () => {
+    console.log('Servidor iniciado na porta 3000');
+  });
+
+-->

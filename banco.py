@@ -65,7 +65,7 @@ def cadastrar_vaga(dados_vaga):
 def deletar_vaga(id_vaga):
     cursor.execute(
         "DELETE FROM vagas WHERE id = ?",
-        (id_vaga["id_vaga"],)
+        (id_vaga,)
     )
 
     return "Vaga deletada com sucesso!"
@@ -74,6 +74,17 @@ def deletar_vaga(id_vaga):
 def vagas_resumidas():
     cursor.execute(
         "SELECT v.id, u.usuario, v.funcao, v.salario FROM vagas v JOIN usuarios u ON v.id_usuario = u.id;"
+    )
+
+    query = cursor.fetchall()
+
+    return query
+
+
+def vagas(id_usuario):
+    cursor.execute(
+        "SELECT v.id, u.usuario, v.funcao, v.salario, v.cargo, v.horas, v.lugar, v.contato FROM vagas v JOIN usuarios u ON v.id_usuario = u.id WHERE v.id_usuario = (?);",
+        (id_usuario,)
     )
 
     query = cursor.fetchall()

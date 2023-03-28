@@ -8,6 +8,14 @@ app.secret_key = secrets.token_bytes(32)
 url_externo = "http://boscola.ddns.net:5000/"
 
 
+@app.route("/manutencao", methods=["GET"])
+def manutencao_front():
+    if "usuario" in session:
+        return render_template("manutencao.html")
+    else:
+        return redirect("http://boscola.ddns.net:5000/login")
+
+
 @app.route("/", methods=["GET"])
 def listar_vagas_front():
     return render_template("listar_vagas.html", data=banco.vagas_resumidas())
@@ -36,6 +44,13 @@ def login_front():
         return "Usuário já logado!", 200
 
 
+@app.route("/api/vagas", methods=["GET"])
+def vagas():
+    resposta = banco.vagas(session["usuario"])
+
+    return resposta
+
+
 @app.route("/api/vagasresumidas", methods=["GET"])
 def vagas_resumidas():
     resposta = banco.vagas_resumidas()
@@ -45,7 +60,7 @@ def vagas_resumidas():
 
 @app.route("/api/deletarvaga", methods=["POST"])
 def deletar_vaga():
-    id_vaga = request.json
+    id_vaga = request.form["id_vaga"]
 
     resposta = banco.deletar_vaga(id_vaga)
 
