@@ -9,11 +9,11 @@
   <body>
     <div class="top_nav">
       {% if data["usuario"] %}
-      <a class="tab" href="http://boscola.ddns.net:5000/criarvaga">Criar vaga</a>
-      <a class="tab" href="http://boscola.ddns.net:5000/manutencao">Minhas vagas</a>
-      <a class="tab" href="http://boscola.ddns.net:5000/logout">Sair</a>
+      <a class="tab" href="/criarvaga">Criar vaga</a>
+      <a class="tab" href="/manutencao">Minhas vagas</a>
+      <a class="tab" href="/logout">Sair</a>
       {% else %}
-      <a class="tab" href="http://boscola.ddns.net:5000/login">Login</a>
+      <a class="tab" href="/login">Login</a>
       {% endif %}
     </div>
 

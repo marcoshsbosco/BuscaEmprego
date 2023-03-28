@@ -5,7 +5,7 @@ import secrets
 
 app = Flask(__name__)
 app.secret_key = secrets.token_bytes(32)
-url_externo = "http://boscola.ddns.net:5000/"
+url_externo = "http://boscola.ddns.net:5000"
 
 
 @app.route("/manutencao", methods=["GET"])
@@ -13,7 +13,7 @@ def manutencao_front():
     if "usuario" in session:
         return render_template("manutencao.html")
     else:
-        return redirect("http://boscola.ddns.net:5000/login")
+        return redirect(f"{url_externo}/login")
 
 
 @app.route("/", methods=["GET"])
@@ -26,7 +26,7 @@ def criar_vaga_front():
     if "usuario" in session:
         return render_template("criar_vaga.html")
     else:
-        return redirect("http://boscola.ddns.net:5000/login")
+        return redirect(f"{url_externo}/login")
 
 
 @app.route("/logout", methods=["GET"])
@@ -81,7 +81,7 @@ def criar_vaga():
 
     resposta = banco.cadastrar_vaga(dados_vaga)
 
-    return redirect("http://boscola.ddns.net:5000/")
+    return redirect(f"{url_externo}/")
 
 
 @app.route('/api/cadastrar', methods=['POST'])
@@ -96,7 +96,7 @@ def cadastrar():
     if resposta == "Esse usuário já existe.":
         return resposta, 200
 
-    return redirect("http://boscola.ddns.net:5000/")
+    return redirect(f"{url_externo}/")
 
 
 @app.route('/api/login', methods=["POST"])
@@ -111,7 +111,7 @@ def login():
     if resposta[0] == "Usuário autenticado com sucesso!":
         session["usuario"] = resposta[1]
 
-    return redirect("http://boscola.ddns.net:5000/")
+    return redirect(f"{url_externo}/")
 
 
 @app.route("/api/logout", methods=["POST"])

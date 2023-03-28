@@ -14,13 +14,13 @@
 		function logout() {
 			let xhr = new XMLHttpRequest();
 
-			xhr.open("POST", "http://boscola.ddns.net:5000/api/logout")
+			xhr.open("POST", "/api/logout")
 
 			xhr.send()
 
 			xhr.onreadystatechange = () => {
 				if (xhr.readyState === 4) {
-					window.location.href = "http://boscola.ddns.net:5000";
+					window.location.href = "/";
 				}
 			}
 		}
