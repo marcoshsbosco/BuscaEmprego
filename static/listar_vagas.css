@@ -31,3 +31,23 @@ body {
   .contato {
     margin-bottom: 5px;
   }
+
+.barrafiltros {
+  margin: 0;
+  overflow: hidden;
+}
+
+.filtro {
+  text-align: center;
+  display: inline-block;
+  padding: 16px 16px;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.filtro:hover {
+  display: inline-block;
+  text-align: center;
+  padding: 16px 16px;
+  font-size: 16px;
+}

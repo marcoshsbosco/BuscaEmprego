@@ -18,7 +18,13 @@
     </div>
 
     <h1>Vagas de Emprego</h1>
-    <div id="vagas"></div>
+
+    <div class="barrafiltros">
+      <input id="salario" type="number" step=0.01 class="filtro">Salário</input>
+      <input id="funcao" type="text" class="filtro">Função</input>
+    </div>
+
+    <div id="vagas">
     <script>
         $(document).ready(function() {
           $.post('/api/vagasresumidas', function(vagas) {
@@ -33,6 +39,42 @@
             $('#vagas').html(html);
           });
         });
+    </script>
+    </div>
+
+
+    <script>
+      var inp_salario = document.getElementById("salario");
+      var inp_funcao = document.getElementById("funcao");
+
+      inp_salario.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+          funEnter();
+        }
+      });
+
+      inp_funcao.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+          funEnter();
+        }
+      });
+    </script>
+    <script>
+      function funEnter() {
+        document.getElementById("vagas").innerHTML = '';
+
+        $.post('/api/vagasresumidas', {salario: inp_salario.value, funcao: inp_funcao.value}, function(vagas) {
+          var html = '';
+          $.each(vagas, function(index, vaga) {
+            html += '<a href="/vaga/' + vaga.id + '"> <div class="vaga">';
+            html += '<div class="salario">Empresa: ' + vaga.usuario + '</div>';
+            html += '<div class="funcao"> Posição: ' + vaga.funcao + '</div>';
+            html += '<div class="salario">Salário: ' + vaga.salario + '</div>';
+            html += '</div> </a>';
+          });
+          $('#vagas').html(html);
+        });
+      }
     </script>
   </body>
 </html>
