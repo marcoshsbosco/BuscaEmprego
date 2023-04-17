@@ -8,6 +8,11 @@ app.secret_key = secrets.token_bytes(32)
 url_externo = "http://boscola.ddns.net:5000"
 
 
+@app.route("/vaga/<id_vaga>", methods=["GET"])
+def vaga_expandida(id_vaga):
+    return render_template("vaga.html", vaga=banco.vaga(id_vaga))
+
+
 @app.route("/manutencao", methods=["GET"])
 def manutencao_front():
     if "usuario" in session:
