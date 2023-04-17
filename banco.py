@@ -138,3 +138,14 @@ def vaga(id_vaga):
     query = cursor.fetchone()
 
     return query
+
+
+def usuario(id_usuario):
+    cursor.execute(
+        "SELECT usuario FROM usuarios WHERE id = (?);",
+        (id_usuario,)
+    )
+
+    query = cursor.fetchone()
+
+    return query

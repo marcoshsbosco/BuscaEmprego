@@ -7,11 +7,22 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   </head>
   <body>
-    <div class="funcao">{{vaga["funcao"]}}</div>
-    <div class="cargo">{{vaga["cargo"]}}</div>
-    <div class="salario">{{vaga["salario"]}}</div>
-    <div class="horas">{{vaga["horas"]}}</div>
-    <div class="lugar">{{vaga["lugar"]}}</div>
-    <div class="contato">{{vaga["contato"]}}</div>
+    <div class="top_nav">
+      <a class="tab" href="/">Voltar</a>
+    </div>
+
+    <div class="header">
+      <img class="ladoalado" src="https://www.pngkey.com/png/full/115-1150152_default-profile-picture-avatar-png-green.png" height=128px width=128px></img>
+      <div class="empresa"> Empresa: {{empresa["usuario"]}} </div>
+    </div>
+
+    <div class="dados">
+      <div class="funcao">Função: {{vaga["funcao"]}}</div>
+      <div class="cargo">Cargo: {{vaga["cargo"]}}</div>
+      <div class="salario">Salário: {{vaga["salario"]}}</div>
+      <div class="horas">Carga horária semanal: {{vaga["horas"]}} horas</div>
+      <div class="lugar">Local ou remoto: {{vaga["lugar"]}}</div>
+      <div class="contato">Contato da empresa: {{vaga["contato"]}}</div>
+    </div>
   </body>
 </html>

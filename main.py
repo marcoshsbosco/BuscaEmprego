@@ -10,7 +10,9 @@ url_externo = "http://boscola.ddns.net:5000"
 
 @app.route("/vaga/<id_vaga>", methods=["GET"])
 def vaga_expandida(id_vaga):
-    return render_template("vaga.html", vaga=banco.vaga(id_vaga))
+    vaga = banco.vaga(id_vaga)
+
+    return render_template("vaga.html", vaga=vaga, empresa=banco.usuario(vaga["id_usuario"]))
 
 
 @app.route("/manutencao", methods=["GET"])
