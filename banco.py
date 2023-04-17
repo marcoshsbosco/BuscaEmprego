@@ -110,6 +110,8 @@ def vagas_resumidas(dados_filtro=None):
                 dql,
                 (f"%{funcao}%",)
             )
+    else:
+        cursor.execute(dql)
 
     query = cursor.fetchall()
 
