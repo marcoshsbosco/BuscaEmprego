@@ -71,10 +71,45 @@ def deletar_vaga(id_vaga):
     return "Vaga deletada com sucesso!"
 
 
-def vagas_resumidas():
-    cursor.execute(
-        "SELECT v.id, u.usuario, v.funcao, v.salario FROM vagas v JOIN usuarios u ON v.id_usuario = u.id;"
-    )
+def vagas_resumidas(dados_filtro=None):
+    dql = "SELECT v.id, u.usuario, v.funcao, v.salario FROM vagas v JOIN usuarios u ON v.id_usuario = u.id"
+
+    salario = None
+    funcao = None
+
+    if dados_filtro:
+        if "salario" in dados_filtro:
+            salario = dados_filtro["salario"]
+        if "funcao" in dados_filtro:
+            funcao = dados_filtro["funcao"]
+
+    if salario or funcao:
+        dql += " WHERE"
+
+        if salario and funcao:
+            dql += " salario > (?) AND v.funcao LIKE ?"
+
+            cursor.execute(
+                dql,
+                (salario, f"%{funcao}%",)
+            )
+        elif salario:
+            dql += " salario > (?)"
+
+            cursor.execute(
+                dql,
+                (salario,)
+            )
+        elif funcao:
+            dql += " v.funcao LIKE ?"
+
+            print(dql)
+            print(funcao)
+
+            cursor.execute(
+                dql,
+                (f"%{funcao}%",)
+            )
 
     query = cursor.fetchall()
 

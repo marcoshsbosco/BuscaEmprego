@@ -63,9 +63,11 @@ def vagas():
     return resposta
 
 
-@app.route("/api/vagasresumidas", methods=["GET"])
+@app.route("/api/vagasresumidas", methods=["POST"])
 def vagas_resumidas():
-    resposta = banco.vagas_resumidas()
+    dados_filtro = request.form
+
+    resposta = banco.vagas_resumidas(dados_filtro)
 
     return resposta, 200
 

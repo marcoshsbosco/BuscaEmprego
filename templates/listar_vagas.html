@@ -21,7 +21,7 @@
     <div id="vagas"></div>
     <script>
         $(document).ready(function() {
-          $.getJSON('/api/vagasresumidas', function(vagas) {
+          $.post('/api/vagasresumidas', function(vagas) {
             var html = '';
             $.each(vagas, function(index, vaga) {
               html += '<div class="vaga">';
