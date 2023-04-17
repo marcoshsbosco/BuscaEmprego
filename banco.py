@@ -90,3 +90,14 @@ def vagas(id_usuario):
     query = cursor.fetchall()
 
     return query
+
+
+def vaga(id_vaga):
+    cursor.execute(
+        "SELECT * FROM vagas WHERE id = (?);",
+        (id_vaga,)
+    )
+
+    query = cursor.fetchone()
+
+    return query

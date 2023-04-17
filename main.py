@@ -47,6 +47,15 @@ def login_front():
         return "Usuário já logado!", 200
 
 
+@app.route("/api/vaga", methods=["POST"])
+def vaga():
+    id_vaga = request.form["id_vaga"]
+
+    resposta = banco.vaga(id_vaga)
+
+    return resposta, 200
+
+
 @app.route("/api/vagas", methods=["GET"])
 def vagas():
     resposta = banco.vagas(session["usuario"])
